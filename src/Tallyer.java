@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -29,7 +30,7 @@ public class Tallyer {
             topics.add(input.next());
         }
         input.close();
-        
+
         // Wave 1
         Map<String, Integer> topicCounts = tallyTopics(topics);
         System.out.println("Here are how many times each topic appears (unfiltered):");
@@ -53,11 +54,19 @@ public class Tallyer {
     public static Map<String, Integer> tallyTopics(List<String> topics) {
         // WAVE 1
         // TODO: Remove the print statements and implement this method
+        Map<String, Integer> topicCount = new HashMap<>();
         for (String topic : topics) {
-            System.out.println("The topic is: " + topic);
-        }
+            if(!topicCount.containsKey(topic)){
+                topicCount.put(topic, 1);
+            } else {
+                int currentCount = topicCount.get(topic);
+                int newCount = currentCount + 1;
+                topicCount.put(topic, newCount);
+            }
 
-        return null;
+        }
+        
+        return topicCount;
     }
 
     /**
@@ -74,6 +83,18 @@ public class Tallyer {
       // WAVE 2
       // TODO: Implement this method
 
-      return null;
+      Map<String, Integer> topicCount = new HashMap<>();
+        for (String topic : topics) {
+            if(!topicCount.containsKey(topic)){
+                topicCount.put(topic, 1);
+            } else {
+                int currentCount = topicCount.get(topic);
+                int newCount = currentCount + 1;
+                topicCount.put(topic, newCount);
+            }
+
+        }
+        
+        return topicCount;
   }
 }
