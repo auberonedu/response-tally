@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -52,12 +53,18 @@ public class Tallyer {
      */
     public static Map<String, Integer> tallyTopics(List<String> topics) {
         // WAVE 1
-        // TODO: Remove the print statements and implement this method
+        Map<String, Integer> map = new HashMap<>();
+        
         for (String topic : topics) {
-            System.out.println("The topic is: " + topic);
+            if(!map.containsKey(topic)) {
+                map.put(topic, 1);
+            } else {
+                int currentCount = map.get(topic);
+                int newCount = currentCount + 1;
+                map.put(topic, newCount);
+            }
         }
-
-        return null;
+        return map;
     }
 
     /**
@@ -72,8 +79,31 @@ public class Tallyer {
      */
     public static Map<String, Integer> tallyTopicsFiltered(List<String> ids, List<String> topics) {
       // WAVE 2
-      // TODO: Implement this method
-
-      return null;
+      Map<String, Integer> map = new HashMap<>();
+      Map<String, Integer> idMap =  new HashMap<>();
+      
+    
+        for (String id :  ids) {
+            if(!idMap.containsKey(id)) {
+                idMap.put(id, 1);
+            } else {
+                int currentCount = idMap.get(id);
+                int newCount = currentCount + 1;
+                idMap.put(id, newCount);
+            }
+        }    
+        
+        if (idMap.containsValue(2)) {
+            for (String topic : topics) {
+                if(!map.containsKey(topic)) {
+                    map.put(topic, 1);
+                } else {
+                    int currentCount = map.get(topic);
+                    int newCount = currentCount + 1;
+                    map.put(topic, newCount);
+                }
+            }
+        }
+        return map;
   }
 }
