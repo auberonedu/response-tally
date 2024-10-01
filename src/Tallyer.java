@@ -1,7 +1,9 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Map.Entry;
 
 /**
  * The Tallyer class provides functionality for reading ID and topic pairs from user input,
@@ -52,12 +54,12 @@ public class Tallyer {
      */
     public static Map<String, Integer> tallyTopics(List<String> topics) {
         // WAVE 1
-        // TODO: Remove the print statements and implement this method
+        Map<String, Integer> counts = new HashMap<>();
         for (String topic : topics) {
-            System.out.println("The topic is: " + topic);
+            counts.put(topic, counts.getOrDefault(topic, 0) + 1);
         }
 
-        return null;
+        return counts;
     }
 
     /**
@@ -74,6 +76,25 @@ public class Tallyer {
       // WAVE 2
       // TODO: Implement this method
 
-      return null;
+      Map<String, List<String>> userTopics = new HashMap<>();
+      for (int i = 0; i < ids.size(); i++) {
+        String id = ids.get(i);
+        String topic = topics.get(i);
+        if(!userTopics.containsKey(id)) {
+          userTopics.put(id, new ArrayList<>());
+        }
+        userTopics.get(id).add(topic);
+      }
+
+      Map<String, Integer> topicCounts = new HashMap<>();
+      for(Entry<String, List<String>> entry : userTopics.entrySet()) {
+        if(entry.getValue().size() == 2) {
+          for (String topic : entry.getValue()) {
+              topicCounts.put(topic, topicCounts.getOrDefault(topic, 0) + 1);
+          }
+        }
+      }
+
+      return topicCounts;
   }
 }
