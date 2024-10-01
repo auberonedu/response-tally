@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -31,7 +32,7 @@ public class Tallyer {
         input.close();
         
         // Wave 1
-        Map<String, Integer> topicCounts = tallyTopics(topics);
+        Map<String, Integer> topicCounts = tallyTopics(ids, topics);
         System.out.println("Here are how many times each topic appears (unfiltered):");
         System.out.println(topicCounts);
 
@@ -50,14 +51,20 @@ public class Tallyer {
      * @param topics a list of strings representing the topics to be tallied
      * @return a map containing topics as keys and their occurrence counts as values
      */
-    public static Map<String, Integer> tallyTopics(List<String> topics) {
+    public static Map<String, Integer> tallyTopics(List<String> ids, List<String> topics) {
         // WAVE 1
-        // TODO: Remove the print statements and implement this method
+        Map<String, Integer> tallyMap = new HashMap<>();
         for (String topic : topics) {
-            System.out.println("The topic is: " + topic);
+            if (!tallyMap.containsKey(topic)){
+                tallyMap.put(topic, 1);
+            } else {
+                int currentCount = tallyMap.get(topic);
+                currentCount++;
+                tallyMap.put(topic, currentCount);
+            }
         }
 
-        return null;
+        return tallyMap;
     }
 
     /**
@@ -72,7 +79,19 @@ public class Tallyer {
      */
     public static Map<String, Integer> tallyTopicsFiltered(List<String> ids, List<String> topics) {
       // WAVE 2
-      // TODO: Implement this method
+      Map<String, Integer> idMap = new HashMap<>();
+    //   Map<String, Integer> tallyMap = new HashMap<>();
+    //   for (String id : ids){
+    //     if (!idMap.containsKey(id)){
+    //         idMap.put(id, 1);
+    //     } else if (idMap.get(id) > 2){
+    //         idMap.remove(id);
+    //     } else {
+    //         int currentCount = idMap.get(id);
+    //         currentCount++;
+    //         idMap.put(id, currentCount);
+    //     }
+    //   }
 
       return null;
   }
