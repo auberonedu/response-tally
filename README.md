@@ -44,6 +44,8 @@ The order is unimportant.
 
 As an extra test, try downloading your class' data from Canvas and checking that your program properly handles it.
 
+**Solved Wave 1 - Created a new Hashmap to add the topics into and iterated through it with a for-loop to count the intial appearance of each topic then increment the count when a duplicate is found. Returns final count.
+
 ### Wave 2 (Please attempt, but it is ok if you do not finish)
 Implement `tallyTopicsFiltered`. Read the Javadoc carefully to understand what the method is meant to do. Make sure to compile your code each time before running it!
 
