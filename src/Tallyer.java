@@ -77,33 +77,47 @@ public class Tallyer {
      * @param topics a list of strings representing the topics to be tallied
      * @return a map containing topics as keys and their occurrence counts as values
      */
-    public static Map<String, Integer> tallyTopicsFiltered(List<String> ids, List<String> topics) {
-      // WAVE 2
-      Map<String, Integer> map = new HashMap<>();
-      Map<String, Integer> idMap =  new HashMap<>();
-      
-    
-        for (String id :  ids) {
-            if(!idMap.containsKey(id)) {
-                idMap.put(id, 1);
-            } else {
-                int currentCount = idMap.get(id);
-                int newCount = currentCount + 1;
-                idMap.put(id, newCount);
-            }
-        }    
+
+public static Map<String, Integer> tallyTopicsFiltered(List<String> ids, List<String> topics) {
+    // WAVE 2
+    Map<String, Integer> map = new HashMap<>();
+    Map<String, Integer> idMap = new HashMap<>();
+    List<String> correctNames = new ArrayList<>();
         
-        if (idMap.containsValue(2)) {
-            for (String topic : topics) {
-                if(!map.containsKey(topic)) {
-                    map.put(topic, 1);
-                } else {
-                    int currentCount = map.get(topic);
-                    int newCount = currentCount + 1;
-                    map.put(topic, newCount);
-                }
+
+    for (String id : ids) {
+        if (!idMap.containsKey(id)) {
+            idMap.put(id, 1);
+        } else {
+            int currentCount = idMap.get(id);
+            int newCount = currentCount + 1;
+            idMap.put(id, newCount);
+        }
+    }
+
+    for (String student : idMap.keySet()) {
+        if (idMap.get(student) == 2) {
+            correctNames.add(student);
+        }
+    }
+
+    //System.out.println(correctNames); //debug checkpoint
+
+
+    // System.out.println(idMap); //debug checkpoint
+
+    for (int i = 0; i < ids.size(); i++) {
+        String id = ids.get(i);
+        String topic = topics.get(i);
+        if (correctNames.contains(id)) {
+            if (!map.containsKey(topic)) {
+                map.put(topic, 1); // Initialize count for new topic
+            } else {
+                int currentCount = map.get(topic);
+                map.put(topic, currentCount + 1); // Increment existing count
             }
         }
-        return map;
-  }
+    }
+    return map;
+}
 }
