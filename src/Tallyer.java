@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -52,12 +53,19 @@ public class Tallyer {
      */
     public static Map<String, Integer> tallyTopics(List<String> topics) {
         // WAVE 1
-        // TODO: Remove the print statements and implement this method
+        // DONE THE TO-DO!
+        Map<String, Integer> waveOneMap = new HashMap<>();
+        
+        // looping through
         for (String topic : topics) {
-            System.out.println("The topic is: " + topic);
+            // if the topic is already there 
+            if (waveOneMap.containsKey(topic)) {
+                waveOneMap.put(topic, waveOneMap.get(topic) + 1);
+            } else {
+                waveOneMap.put(topic, 1);
+            }
         }
-
-        return null;
+        return waveOneMap;  
     }
 
     /**
@@ -72,8 +80,31 @@ public class Tallyer {
      */
     public static Map<String, Integer> tallyTopicsFiltered(List<String> ids, List<String> topics) {
       // WAVE 2
-      // TODO: Implement this method
+      // DONE THE TO-DO!
+        Map<String, Integer> waveTwoMap = new HashMap<>();
+        Map<String, Integer> userTopicCounts = new HashMap<>();
 
-      return null;
-  }
+        // count the number of topics that each user entered
+        for (String id : ids) {
+            if (userTopicCounts.containsKey(id)) {
+                userTopicCounts.put(id, userTopicCounts.get(id) + 1);
+            } else {
+                userTopicCounts.put(id, 1);
+            }
+        }
+
+        // count topics from users who entered exactly 2 topics
+        for (int i = 0; i < ids.size(); i++) {
+            String id = ids.get(i);
+            String topic = topics.get(i);
+            if (userTopicCounts.get(id) == 2) {
+                if (waveTwoMap.containsKey(topic)) {
+                    waveTwoMap.put(topic, waveTwoMap.get(topic) + 1);
+                } else {
+                    waveTwoMap.put(topic, 1);
+                }
+            }
+        }
+        return waveTwoMap;
+    }
 }
