@@ -1,14 +1,9 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-
+import java.util.*;
 /**
  * The Tallyer class provides functionality for reading ID and topic pairs from user input,
  * and tallying the number of occurrences of each topic.
  */
 public class Tallyer {
-
     /**
      * The main method serves as the entry point for the program. It reads pairs of IDs and topics
      * from standard input, stores them in lists, and then calculates the number of occurrences
@@ -18,7 +13,6 @@ public class Tallyer {
      */
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-
         List<String> ids = new ArrayList<>();
         List<String> topics = new ArrayList<>();
         
@@ -34,13 +28,11 @@ public class Tallyer {
         Map<String, Integer> topicCounts = tallyTopics(topics);
         System.out.println("Here are how many times each topic appears (unfiltered):");
         System.out.println(topicCounts);
-
         // Wave 2
         Map<String, Integer> topicCountsFiltered = tallyTopicsFiltered(ids, topics);
         System.out.println("Here are how many times each topic appears (filtered):");
         System.out.println(topicCountsFiltered);
     }
-
     /**
      * Tally the occurrences of each topic from the provided lists of IDs and topics.
      * This method takes two lists, one of IDs and one of topics, and returns a map
@@ -51,15 +43,19 @@ public class Tallyer {
      * @return a map containing topics as keys and their occurrence counts as values
      */
     public static Map<String, Integer> tallyTopics(List<String> topics) {
-        // WAVE 1
-        // TODO: Remove the print statements and implement this method
+    // WAVE 1
+    // TODO: Remove the print statements and implement this method
+        Map<String, Integer> count = new HashMap<>();
         for (String topic : topics) {
-            System.out.println("The topic is: " + topic);
+            if (count.containsKey(topic)) {
+                count.put(topic,  count.get(topic)+ 1);
+            } else{
+                count.put(topic, 1);
+            }
         }
-
-        return null;
+        
+        return count;
     }
-
     /**
      * Tally the occurrences of each topic from the provided lists of IDs and topics.
      * This method takes two lists, one of IDs and one of topics, and returns a map
@@ -73,7 +69,6 @@ public class Tallyer {
     public static Map<String, Integer> tallyTopicsFiltered(List<String> ids, List<String> topics) {
       // WAVE 2
       // TODO: Implement this method
-
       return null;
   }
 }
