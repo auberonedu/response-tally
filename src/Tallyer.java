@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
+import java.util.HashMap;
 /**
  * The Tallyer class provides functionality for reading ID and topic pairs from user input,
  * and tallying the number of occurrences of each topic.
@@ -18,7 +18,7 @@ public class Tallyer {
      */
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-
+        
         List<String> ids = new ArrayList<>();
         List<String> topics = new ArrayList<>();
         
@@ -53,11 +53,17 @@ public class Tallyer {
     public static Map<String, Integer> tallyTopics(List<String> topics) {
         // WAVE 1
         // TODO: Remove the print statements and implement this method
+        Map<String, Integer> countTopic = new HashMap<>();
         for (String topic : topics) {
-            System.out.println("The topic is: " + topic);
+            if (!countTopic.containsKey(topic)){
+                countTopic.put(topic, 1);
+            } else {
+                int currentCount = countTopic.get(topic);
+                int newCount = currentCount + 1;
+                countTopic.put(topic, newCount);
+            }
         }
-
-        return null;
+        return countTopic;
     }
 
     /**
@@ -73,7 +79,32 @@ public class Tallyer {
     public static Map<String, Integer> tallyTopicsFiltered(List<String> ids, List<String> topics) {
       // WAVE 2
       // TODO: Implement this method
+        Map<String, Integer> idCount = new HashMap<>();
+        for (String id : ids){
+            if (!idCount.containsKey(id)){
+                idCount.put(id, 1);
+            } else {
+                int currentCount = idCount.get(id);
+                int newCount = currentCount + 1;
+                idCount.put(id, newCount);
+            }
+        }
 
-      return null;
+        Map<String, Integer> filteredCount = new HashMap<>();
+        for (int i = 0; i < ids.size(); i++) {
+            String id = ids.get(i);
+            String topic = topics.get(i);
+
+            if (idCount.get(id) == 2){
+                if (!filteredCount.containsKey(topic)){
+                filteredCount.put(topic, 1);
+                } else {
+                    int currentCount = filteredCount.get(topic);
+                    int newCount = currentCount + 1;
+                    filteredCount.put(topic, newCount);
+                }
+            }
+        }
+        return filteredCount;
   }
 }
