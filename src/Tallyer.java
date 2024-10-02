@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -51,13 +52,22 @@ public class Tallyer {
      * @return a map containing topics as keys and their occurrence counts as values
      */
     public static Map<String, Integer> tallyTopics(List<String> topics) {
+
+        Map<String, Integer> topicCountMap = new HashMap<>();
         // WAVE 1
         // TODO: Remove the print statements and implement this method
         for (String topic : topics) {
-            System.out.println("The topic is: " + topic);
+            //If topic is in map, increment by 1
+            if (topicCountMap.containsKey(topic)) {
+                topicCountMap.put(topic, topicCountMap.get(topic) + 1);
+            }
+            //If topic is not in the map, add count 1
+            else {
+                topicCountMap.put(topic, 1);
+            }
+            
         }
-
-        return null;
+        return topicCountMap;
     }
 
     /**
