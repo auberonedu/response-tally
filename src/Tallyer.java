@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.HashMap;
 
 /**
  * The Tallyer class provides functionality for reading ID and topic pairs from user input,
@@ -34,11 +35,13 @@ public class Tallyer {
         Map<String, Integer> topicCounts = tallyTopics(topics);
         System.out.println("Here are how many times each topic appears (unfiltered):");
         System.out.println(topicCounts);
+        System.out.println("test");
 
         // Wave 2
         Map<String, Integer> topicCountsFiltered = tallyTopicsFiltered(ids, topics);
         System.out.println("Here are how many times each topic appears (filtered):");
         System.out.println(topicCountsFiltered);
+
     }
 
     /**
@@ -52,12 +55,17 @@ public class Tallyer {
      */
     public static Map<String, Integer> tallyTopics(List<String> topics) {
         // WAVE 1
-        // TODO: Remove the print statements and implement this method
+        Map<String, Integer> topicsCountMap = new HashMap<>();
+
         for (String topic : topics) {
-            System.out.println("The topic is: " + topic);
+           if(!topicsCountMap.containsKey(topic)){
+                topicsCountMap.put(topic, 1);
+           } else {
+                topicsCountMap.put(topic, topicsCountMap.get(topic) + 1);
+           }
         }
 
-        return null;
+        return topicsCountMap;
     }
 
     /**
@@ -72,8 +80,43 @@ public class Tallyer {
      */
     public static Map<String, Integer> tallyTopicsFiltered(List<String> ids, List<String> topics) {
       // WAVE 2
-      // TODO: Implement this method
 
-      return null;
+        // list for valid topics
+        List<String> validTopics = new ArrayList<>();
+        // map of topic count
+        Map<String, Integer> topicsCountMap = new HashMap<>();
+
+        // count ids
+        Map<String, Integer> idsCountMap = new HashMap<>();
+        for (String id : ids){
+            if(!idsCountMap.containsKey(id)){
+                idsCountMap.put(id, 1);
+            }
+            else {
+                idsCountMap.put(id, idsCountMap.get(id) + 1);
+            }
+        }
+
+        // create list of valid topics
+        for (int i = 0; i < ids.size(); i++) {
+            if(idsCountMap.get(ids.get(i)) == 2){
+                validTopics.add(topics.get(i));
+            }
+        }
+
+        // count topics
+
+        for (String topic : validTopics) {
+           if(!topicsCountMap.containsKey(topic)){
+                topicsCountMap.put(topic, 1);
+           }
+           else {
+                topicsCountMap.put(topic, topicsCountMap.get(topic) + 1);
+           }
+        
+
+        
+        }
+        return topicsCountMap; 
   }
 }
