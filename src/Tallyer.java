@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+//Imported the HashMap library, because the type wasn't being recognize for some reason from the "Map" library. -Tyler
+import java.util.HashMap;
 
 /**
  * The Tallyer class provides functionality for reading ID and topic pairs from user input,
@@ -52,12 +54,12 @@ public class Tallyer {
      */
     public static Map<String, Integer> tallyTopics(List<String> topics) {
         // WAVE 1
-        // TODO: Remove the print statements and implement this method
+        Map<String, Integer> topicCounts = new HashMap<>();
         for (String topic : topics) {
-            System.out.println("The topic is: " + topic);
+            topicCounts.put(topic, topicCounts.getOrDefault(topic, 0) + 1);
         }
 
-        return null;
+        return topicCounts;
     }
 
     /**
@@ -72,8 +74,22 @@ public class Tallyer {
      */
     public static Map<String, Integer> tallyTopicsFiltered(List<String> ids, List<String> topics) {
       // WAVE 2
-      // TODO: Implement this method
+      Map<String, Integer> topicCountsFiltered = new HashMap<>();
+      Map<String, Integer> totalVotes = new HashMap<>();
 
-      return null;
+      // Tracks the number of votes for the topics with the appropriate user id
+      for (String id : ids) {
+        totalVotes.put(id, totalVotes.getOrDefault(id, 0) + 1);
+      }
+
+      // Tallies the topics from the user that only voted for the correct amount (2)
+      for (int i = 0; i < ids.size(); i++) {
+        if (totalVotes.get(ids.get(i)) == 2) {
+            String topic = topics.get(i);
+            topicCountsFiltered.put(topic, topicCountsFiltered.getOrDefault(topic, 0) + 1);
+        }
+      }
+
+      return topicCountsFiltered;
   }
 }
