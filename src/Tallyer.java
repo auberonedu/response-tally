@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -53,12 +54,19 @@ public class Tallyer {
     public static Map<String, Integer> tallyTopics(List<String> topics) {
         // WAVE 1
         // TODO: Remove the print statements and implement this method
+       Map<String, Integer> topicCount = new HashMap<>();
         for (String topic : topics) {
-            System.out.println("The topic is: " + topic);
-        }
-
-        return null;
-    }
+            if (!topicCount.containsKey(topic)) {
+                topicCount.put(topic, 1);
+            }
+            else {
+                int currentCount = topicCount.get(topic);
+                int newCount = currentCount + 1;
+                topicCount.put(topic, newCount);
+             }
+           }
+                return topicCount;
+     }
 
     /**
      * Tally the occurrences of each topic from the provided lists of IDs and topics.
@@ -73,7 +81,36 @@ public class Tallyer {
     public static Map<String, Integer> tallyTopicsFiltered(List<String> ids, List<String> topics) {
       // WAVE 2
       // TODO: Implement this method
+    Map<String, Integer> topicCount = new HashMap<>();
+    Map<String, Integer> voteCount = new HashMap<>(); 
+      
+        for (String id : ids) {
+            if (!voteCount.containsKey(id)) {
+                voteCount.put(id, 1);
+            }
+            else {
+                int currentCount = voteCount.get(id);
+                int newCount = currentCount + 1;
+                voteCount.put(id, newCount);
+            }
+        }
+        
 
-      return null;
+        
+        if (voteCount.equals(2)) {
+                for(String topic : topics){
+                    if (!topicCount.containsKey(topic)) {
+                        topicCount.put(topic, 1);
+                    }
+                    else {
+                        int currentCount = topicCount.get(topic);
+                        int newCount = currentCount + 1;
+                        topicCount.put(topic, newCount);
+                    }
+                }
+            }
+                    
+        
+        return topicCount;
   }
 }
