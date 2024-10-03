@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * The Tallyer class provides functionality for reading ID and topic pairs from user input,
@@ -17,6 +14,7 @@ public class Tallyer {
      * @param args command-line arguments (not used in this implementation)
      */
     public static void main(String[] args) {
+        
         Scanner input = new Scanner(System.in);
 
         List<String> ids = new ArrayList<>();
@@ -32,13 +30,14 @@ public class Tallyer {
         
         // Wave 1
         Map<String, Integer> topicCounts = tallyTopics(topics);
+        
         System.out.println("Here are how many times each topic appears (unfiltered):");
         System.out.println(topicCounts);
 
         // Wave 2
-        Map<String, Integer> topicCountsFiltered = tallyTopicsFiltered(ids, topics);
-        System.out.println("Here are how many times each topic appears (filtered):");
-        System.out.println(topicCountsFiltered);
+        //Map<String, Integer> topicCountsFiltered = tallyTopicsFiltered(ids, topics);
+       // System.out.println("Here are how many times each topic appears (filtered):");
+       // System.out.println(topicCountsFiltered);
     }
 
     /**
@@ -53,12 +52,22 @@ public class Tallyer {
     public static Map<String, Integer> tallyTopics(List<String> topics) {
         // WAVE 1
         // TODO: Remove the print statements and implement this method
+        Map<String, Integer> topicCounts = new HashMap<>();
+
         for (String topic : topics) {
-            System.out.println("The topic is: " + topic);
+            if(topicCounts.containsKey(topic)) {
+                // we are overriding the existing topic and adding one to the value
+                topicCounts.put(topic, topicCounts.get(topic) + 1);
+            } else{
+                // If it doesn't exist than put it in the map
+                topicCounts.put(topic, 1);
+            }
         }
 
-        return null;
+        return topicCounts;
     }
+
+    
 
     /**
      * Tally the occurrences of each topic from the provided lists of IDs and topics.
