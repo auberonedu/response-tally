@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -50,16 +51,33 @@ public class Tallyer {
      * @param topics a list of strings representing the topics to be tallied
      * @return a map containing topics as keys and their occurrence counts as values
      */
+
+    // public static Map<String, Integer> tallyTopics(List<String> topics) {
+    //     // WAVE 1
+    //     // TODO: Remove the print statements and implement this method
+    //     for (String topic : topics) {
+    //         System.out.println("The topic is: " + topic);
+    //     }
+
+    //     return null;
+    // }
+//----------------------------------------------------------------------------
     public static Map<String, Integer> tallyTopics(List<String> topics) {
         // WAVE 1
-        // TODO: Remove the print statements and implement this method
+        //Create a hashmap to store the info
+        Map<String, Integer> topicCounts = new HashMap<>();
+
+        //iterate through each topic in the list 
         for (String topic : topics) {
-            System.out.println("The topic is: " + topic);
+            //use getOrDefault to check if the topic is already in the map 
+            //if it is, increment the count; if not, start with and add 1
+            topicCounts.put(topic, topicCounts.getOrDefault(topic,0) + 1);
         }
 
-        return null;
+        //return the map containing the count of each topic 
+        return topicCounts;
     }
-
+//------------------------------------------------------------------------------
     /**
      * Tally the occurrences of each topic from the provided lists of IDs and topics.
      * This method takes two lists, one of IDs and one of topics, and returns a map
@@ -70,10 +88,20 @@ public class Tallyer {
      * @param topics a list of strings representing the topics to be tallied
      * @return a map containing topics as keys and their occurrence counts as values
      */
+
     public static Map<String, Integer> tallyTopicsFiltered(List<String> ids, List<String> topics) {
       // WAVE 2
       // TODO: Implement this method
+        Map<String, Integer> topicCountsFiltered = new HashMap<>();
+    
+//count for those that answered only 2 choices
 
-      return null;
-  }
+//filter those that didn't enter 2 topics --don't have their votes counted
+         
+
+        for (String topic : topics) {
+            topicCountsFiltered.put(topic, topicCountsFiltered.getOrDefault(topic, 0) + 1);
+        }
+      return topicCountsFiltered;
+    }
 }
