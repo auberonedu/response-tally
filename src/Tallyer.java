@@ -53,7 +53,6 @@ public class Tallyer {
      */
     public static Map<String, Integer> tallyTopics(List<String> topics) {
         // WAVE 1
-        // TODO: Remove the print statements and implement this method
         Map<String, Integer> topicCounts = new HashMap<>();
         for (String topic : topics) {
             if (!topicCounts.containsKey(topic)) {
@@ -80,7 +79,6 @@ public class Tallyer {
      */
     public static Map<String, Integer> tallyTopicsFiltered(List<String> ids, List<String> topics) {
       // WAVE 2
-      // TODO: Implement this method
       
       Map<String, Integer> stuCount = tallyTopics(ids); // this counts the students
       Map<String, Integer> topicCount = new HashMap<>();
