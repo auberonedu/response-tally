@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -52,12 +53,16 @@ public class Tallyer {
      */
     public static Map<String, Integer> tallyTopics(List<String> topics) {
         // WAVE 1
-        // TODO: Remove the print statements and implement this method
+        Map<String, Integer> map = new HashMap<>();
         for (String topic : topics) {
-            System.out.println("The topic is: " + topic);
+            //System.out.println("The topic is: " + topic);
+            if(map.containsKey(topic)) {
+                map.put(topic, map.get(topic)+1);
+            } else {
+                map.put(topic, 1);
+            }
         }
-
-        return null;
+        return map;
     }
 
     /**
@@ -72,8 +77,35 @@ public class Tallyer {
      */
     public static Map<String, Integer> tallyTopicsFiltered(List<String> ids, List<String> topics) {
       // WAVE 2
-      // TODO: Implement this method
+      Map<String, Integer> map1 = new HashMap<>();
+      Map<String, Integer> map2 = new HashMap<>();
+      Map<String, Integer> filteredMap = new HashMap<>();
 
-      return null;
+      for (int i = 0; i < ids.size(); i++) {
+        String id = ids.get(i);
+        String topic = topics.get(i);
+        
+        if(map1.containsKey(id)) {
+            map1.put(id, map1.get(id)+1);
+        } else {
+            map1.put(id, 1);
+        }
+
+        if(map2.containsKey(topic)) {
+            map2.put(topic, map2.get(topic)+1);
+        } else {
+            map2.put(topic, 1);
+        }
+      }
+
+      for (int i = 0; i < ids.size(); i++) {
+        String id = ids.get(i);
+        String topic = topics.get(i);
+        if(map1.get(id)<=2) {
+            filteredMap.put(topic, map1.get(id));
+        }
+      }
+      
+      return filteredMap;
   }
 }
