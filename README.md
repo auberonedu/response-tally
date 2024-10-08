@@ -1,61 +1,100 @@
-# response-tally
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
-An exercise for counting responses to a survey.
+/**
+ * The Tallyer class provides functionality for reading ID and topic pairs from user input,
+ * and tallying the number of occurrences of each topic.
+ */
+public class Tallyer {
 
-## Getting Started
-Fork and clone this repository. You can look at the instructions from our [previous exercise](https://github.com/auberonedu/github-intro) as a reminder of how to do this. MAKE SURE TO CLONE YOUR FORK, NOT THE ORIGINAL.
+    /**
+     * The main method serves as the entry point for the program. It reads pairs of IDs and topics
+     * from standard input, stores them in lists, and then calculates the number of occurrences
+     * of each topic. The IDs and topics are guaranteed to not include internal whitespace.
+     *
+     * @param args command-line arguments (not used in this implementation)
+     */
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
 
-## Data Format
-There is a file `responses.txt` that contains the data we'll be working with. Here's what's inside it.
-```
-studentA maps
-studentB maps
-studentA lists
-studentB arrays
-studentC loops
-studentC arrays
-studentA compound
-```
+        List<String> ids = new ArrayList<>();
+        List<String> topics = new ArrayList<>();
+        
+        // Reading input for IDs and topics
+        // Assumes input is well formed into pairs
+        while (input.hasNext()) {
+            ids.add(input.next());
+            topics.add(input.next());
+        }
+        input.close();
+        
+        // Wave 1
+        Map<String, Integer> topicCounts = tallyTopics(topics);
+        System.out.println("Here are how many times each topic appears (unfiltered):");
+        System.out.println(topicCounts);
 
-The first string on each line is a pseudonymous id of a student. The second string is a topic they want to know more about.
+        // Wave 2
+        Map<String, Integer> topicCountsFiltered = tallyTopicsFiltered(ids, topics);
+        System.out.println("Here are how many times each topic appears (filtered):");
+        System.out.println(topicCountsFiltered);
+    }
 
-## Template Code
-Look at `Tallyer.java` to see the already provided code. Take a look over it and predict what it will do when you run it.
+    /**
+     * Tally the occurrences of each topic from the provided lists of topics.
+     * This method takes a list of topics and returns a map where each topic is associated
+     * with the number of times it appears in the input.
+     *
+     * @param topics a list of strings representing the topics to be tallied
+     * @return a map containing topics as keys and their occurrence counts as values
+     */
+    public static Map<String, Integer> tallyTopics(List<String> topics) {
+        // Create a map to hold the count of each topic
+        Map<String, Integer> topicCountMap = new HashMap<>();
 
-### Running the code
-1. Open your terminal in VS Code. On Mac/Linux, it should have the right type of terminal by default. On Windows, follow [these instructions](https://stackoverflow.com/questions/42606837/how-do-i-use-bash-on-windows-from-the-visual-studio-code-integrated-terminal) to make Git Bash the default terminal. (You do not need to do step 1 because you already have installed git).
-1. Verify you are in the `response-tally` directory by running `pwd` (print working directory) on the terminal. The printed directory should end in `response-tally`.
-1. Compile the Java files by running `javac src/**/*.java`
-1. Run the main method of Tallyer by running `java -cp src Tallyer < responses.txt`
+        // Iterate through the list of topics and count occurrences
+        for (String topic : topics) {
+            topicCountMap.put(topic, topicCountMap.getOrDefault(topic, 0) + 1);
+        }
 
-## Submitting
-Once you have completed the below section (Modifying the Code), please open a Pull Request (PR). Please copy and paste your PR URL into Canvas to receive credit. Include your attempt at Wave 2, even if you did not complete it.
+        System.out.println("Topic counts: " + topicCountMap); // Debugging line
+        return topicCountMap; // Return the map with topic counts
+    }
 
-## Modifying the code
+    /**
+     * Tally the occurrences of each topic from the provided lists of IDs and topics.
+     * This method takes two lists, one of IDs and one of topics, and returns a map
+     * where each topic is associated with the number of times it appears in the input.
+     * However, any user who did not enter exactly 2 topics should not have their votes counted.
+     *
+     * @param ids a list of strings representing IDs associated with each topic
+     * @param topics a list of strings representing the topics to be tallied
+     * @return a map containing topics as keys and their occurrence counts as values
+     */
+    public static Map<String, Integer> tallyTopicsFiltered(List<String> ids, List<String> topics) {
+        Map<String, Integer> filteredTopicCountMap = new HashMap<>();
 
-### Wave 1 (Required)
-Implement `tallyTopics`. Read the Javadoc carefully to understand what the method is meant to do. Make sure to compile your code each time before running it!
+        // Create a map to count the occurrences of IDs
+        Map<String, Integer> idCountMap = new HashMap<>();
+        for (String id : ids) {
+            idCountMap.put(id, idCountMap.getOrDefault(id, 0) + 1);
+        }
 
-For the sample file, a correct output would look similar to:
-```
-{maps=2, lists=1, loops=1, arrays=2, compound=1}
-```
-The order is unimportant.
+        System.out.println("ID counts: " + idCountMap); // Debugging line
 
-As an extra test, try downloading your class' data from Canvas and checking that your program properly handles it.
+        // Iterate through the topics and count occurrences for valid IDs
+        for (int i = 0; i < ids.size(); i++) {
+            String id = ids.get(i);
+            String topic = topics.get(i);
+            // Only count if the ID appears exactly twice
+            if (idCountMap.get(id) == 2) {
+                filteredTopicCountMap.put(topic, filteredTopicCountMap.getOrDefault(topic, 0) + 1);
+            }
+        }
 
-### Wave 2 (Please attempt, but it is ok if you do not finish)
-Implement `tallyTopicsFiltered`. Read the Javadoc carefully to understand what the method is meant to do. Make sure to compile your code each time before running it!
-
-For the above sample file, a correct output would look similar to:
-```
-{maps=1, loops=1, arrays=2}
-```
-The order is unimportant.
-
-### Extra Challenges (Entirely optional)
-Some more ways to exercise:
-1. Display the results in sorted order
-1. Refactor the code so that it is object oriented
-1. Robustly handle malformed files
-1. Come up with some other interesting way to work with the data!
+        System.out.println("Filtered topic counts: " + filteredTopicCountMap); // Debugging line
+        return filteredTopicCountMap; // Return the map with filtered topic counts
+    }
+}
