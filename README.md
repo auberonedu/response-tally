@@ -26,7 +26,7 @@ Look at `Tallyer.java` to see the already provided code. Take a look over it and
 1. Open your terminal in VS Code. On Mac/Linux, it should have the right type of terminal by default. On Windows, follow [these instructions](https://stackoverflow.com/questions/42606837/how-do-i-use-bash-on-windows-from-the-visual-studio-code-integrated-terminal) to make Git Bash the default terminal. (You do not need to do step 1 because you already have installed git).
 1. Verify you are in the `response-tally` directory by running `pwd` (print working directory) on the terminal. The printed directory should end in `response-tally`.
 1. Compile the Java files by running `javac src/Tallyer.java`
-1. Run the main method of Tallyer by running `java -cp src Tallyer < responses.txt`
+1. Run the main method of Tallyer by running `java -cp src Tallyer < response.txt`
 
 ## Submitting
 Once you have completed the below section (Modifying the Code), please open a Pull Request (PR). Please copy and paste your PR URL into Canvas to receive credit. Include your attempt at Wave 2, even if you did not complete it.
